@@ -1,4 +1,4 @@
-use gui::{Button, Draw, Screen};
+use oop_features::{Post, Draw};
 
 struct SelectBox {
     width: u32,
@@ -13,24 +13,13 @@ impl Draw for SelectBox {
 }
 
 fn main() {
-    let screen = Screen {
-        components: vec![
-            Box::new(SelectBox {
-                width: 75,
-                height: 10,
-                options: vec![
-                    String::from("Yes"),
-                    String::from("Maybe"),
-                    String::from("No"),
-                ],
-            }),
-            Box::new(Button {
-                width: 50,
-                height: 10,
-                label: String::from("OK"),
-            }),
-        ],
-    };
+    let mut post = Post::new();
 
-    screen.run();
+    post.add_text("I ate a salad for lunch today");
+
+    let post = post.request_review();
+
+    let post = post.approve();
+
+    assert_eq!("I ate a salad for lunch today", post.content());
 }
